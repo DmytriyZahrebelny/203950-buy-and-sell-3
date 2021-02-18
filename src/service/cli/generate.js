@@ -32,7 +32,9 @@ const getPictureFileName = (num) => {
 const readContent = async (filePath) => {
   try {
     const content = await fs.readFile(filePath, `utf8`);
-    return content.trim().split(`\n`);
+    return content.trim().split(`\n`)
+      .map((text) => text.trim())
+      .filter((text) => text.length);
   } catch (err) {
     console.error(chalk.red(err));
     return [];
