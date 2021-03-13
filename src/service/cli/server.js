@@ -34,7 +34,6 @@ module.exports = {
     const [customPort] = args;
     const port = Number.parseInt(customPort, 10) || DEFAULT_PORT;
 
-
     app.listen(port, (err) => {
       if (err) {
         return console.error(`Ошибка при создании сервера`, err);
