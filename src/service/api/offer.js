@@ -12,7 +12,6 @@ module.exports = (app, offerService, commentService) => {
 
   route.get(`/`, (req, res) => {
     const offers = offerService.findAll();
-    console.log(offers);
 
     return res.status(HttpCode.OK)
       .json(offers);
