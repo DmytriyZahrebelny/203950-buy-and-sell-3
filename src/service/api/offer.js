@@ -55,11 +55,11 @@ module.exports = (app, offerService, commentService) => {
     const offer = offerService.drop(offerId);
 
     if (!offer) {
-      res.status(HttpCode.status(HttpCode.NOT_FOUND)
+      return res.status(HttpCode.status(HttpCode.NOT_FOUND)
       .send(`Not found`));
     }
 
-    res.status(HttpCode.OK)
+    return res.status(HttpCode.OK)
       .json(offer);
   });
 
@@ -68,11 +68,11 @@ module.exports = (app, offerService, commentService) => {
     const comments = commentService.findAll(offerId);
 
     if (!comments) {
-      res.status(HttpCode.status(HttpCode.NOT_FOUND)
+      return res.status(HttpCode.status(HttpCode.NOT_FOUND)
       .send(`Not found`));
     }
 
-    res.status(HttpCode.OK)
+    return res.status(HttpCode.OK)
       .json(comments);
   });
 
@@ -89,11 +89,11 @@ module.exports = (app, offerService, commentService) => {
     const comment = commentService.drop(offerId, commentId);
 
     if (!comment) {
-      res.status(HttpCode.status(HttpCode.NOT_FOUND)
+      return res.status(HttpCode.status(HttpCode.NOT_FOUND)
       .send(`Not found`));
     }
 
-    res.status(HttpCode.OK)
+    return res.status(HttpCode.OK)
       .json(comment);
   });
 };
