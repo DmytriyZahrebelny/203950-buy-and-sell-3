@@ -11,6 +11,10 @@ const USER_ARGV_INDEX = 2;
 const MAX_ID_LENGTH = 6;
 const API_PREFIX = `/api`;
 
+const Env = {
+  DEVELOPMENT: `development`,
+  PRODUCTION: `production`
+};
 
 const HttpCode = {
   OK: 200,
@@ -28,5 +32,6 @@ module.exports = {
   USER_ARGV_INDEX,
   API_PREFIX,
   MAX_ID_LENGTH,
-  HttpCode
+  HttpCode,
+  Env,
 };
