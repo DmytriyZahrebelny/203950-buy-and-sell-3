@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports.mockOffers = [
+const mockOffers = [
   {
     "category": [
       `Книги`,
@@ -8,9 +8,11 @@ module.exports.mockOffers = [
     ],
     "comments": [
       {
+        "id": `Fg0ikD`,
         "text": `Почему в таком ужасном состоянии?`
       },
       {
+        "id": `Fg0ikD`,
         "text": `Продаю в связи с переездом. Отрываю от сердца. А где блок питания?`
       }
     ],
@@ -28,15 +30,19 @@ module.exports.mockOffers = [
     ],
     "comments": [
       {
+        "id": `Fg0ikD`,
         "text": `Неплохо, но дорого. Совсем немного... Оплата наличными или перевод на карту?`
       },
       {
+        "id": `Fg0ikD`,
         "text": `С чем связана продажа? Почему так дешёво? Вы что?! В магазине дешевле. Продаю в связи с переездом. Отрываю от сердца.`
       },
       {
+        "id": `Fg0ikD`,
         "text": `Неплохо, но дорого. Совсем немного...`
       },
       {
+        "id": `Fg0ikD`,
         "text": `Вы что?! В магазине дешевле.`
       }
     ],
@@ -53,6 +59,7 @@ module.exports.mockOffers = [
     ],
     "comments": [
       {
+        "id": `Fg0ikD`,
         "text": `Оплата наличными или перевод на карту? Продаю в связи с переездом. Отрываю от сердца. С чем связана продажа? Почему так дешёво?`
       }
     ],
@@ -64,3 +71,34 @@ module.exports.mockOffers = [
     "id": `Fg0ikD`
   }
 ];
+
+const mockOfersCategories = mockOffers.reduce((acc, offer) => {
+  return new Set([...acc, ...offer.category]);
+}, new Set());
+
+const mockFirstOffersId = mockOffers[0].id;
+const mockSecondOfferId = mockOffers[1].id;
+const mockSecondOfferTitle = mockOffers[1].title;
+const mockNoExistId = `NOEXST`;
+const mockNotFound = `Not found with`;
+const mockOfferCommentId = mockOffers[1].comments[1].id;
+
+const mockInvalidOffer = {
+  category: `Это`,
+  title: `невалидный`,
+  description: `объект`,
+  picture: `объявления`,
+  type: `нет поля sum`
+};
+
+module.exports = {
+  mockOffers,
+  mockOfersCategories: Array.from(mockOfersCategories),
+  mockFirstOffersId,
+  mockSecondOfferId,
+  mockSecondOfferTitle,
+  mockNoExistId,
+  mockNotFound,
+  mockInvalidOffer,
+  mockOfferCommentId,
+};
