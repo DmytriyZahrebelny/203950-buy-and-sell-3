@@ -1,10 +1,10 @@
 'use strict';
 
 const fs = require(`fs`).promises;
-const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
 const {getRandomInt, shuffle} = require(`../../utils`);
 const {MAX_ID_LENGTH} = require(`../../constants`);
+const {getLogger} = require(`../lib/logger`);
 
 const DEFAULT_COUNT = 1;
 const MAX_COMMENTS = 4;
@@ -29,6 +29,8 @@ const PictureRestrict = {
   MAX: 16
 };
 
+const logger = getLogger({name: `generate`});
+
 const getPictureFileName = (num) => {
   return num >= 10 ? `item${num}.jpg` : `item0${num}.jpg`;
 };
@@ -40,7 +42,7 @@ const readContent = async (filePath) => {
       .map((text) => text.trim())
       .filter((text) => text.length);
   } catch (err) {
-    console.error(chalk.red(err));
+    logger.error(err);
     return [];
   }
 };
@@ -81,10 +83,10 @@ module.exports = {
 
     try {
       await fs.writeFile(FILE_NAME, content);
-      console.info(chalk.green(`Operation success. File created.`));
+      logger.info(`Operation success. File created.`);
     } catch (err) {
-      console.log(err);
-      console.error(chalk.red(`Can't write data to file...`));
+      logger.error(err);
+      logger.error(`Can't write data to file...`);
     }
   }
 };

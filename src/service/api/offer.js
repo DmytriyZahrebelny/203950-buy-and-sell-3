@@ -55,8 +55,8 @@ module.exports = (app, offerService, commentService) => {
     const offer = offerService.drop(offerId);
 
     if (!offer) {
-      return res.status(HttpCode.status(HttpCode.NOT_FOUND)
-      .send(`Not found`));
+      return res.status(HttpCode.NOT_FOUND)
+        .send(`Not found`);
     }
 
     return res.status(HttpCode.OK)
@@ -68,8 +68,8 @@ module.exports = (app, offerService, commentService) => {
     const comments = commentService.findAll(offerId);
 
     if (!comments) {
-      return res.status(HttpCode.status(HttpCode.NOT_FOUND)
-      .send(`Not found`));
+      return res.status(HttpCode.NOT_FOUND)
+        .send(`Not found`);
     }
 
     return res.status(HttpCode.OK)
@@ -80,6 +80,11 @@ module.exports = (app, offerService, commentService) => {
     const {offerId} = req.params;
     const comments = commentService.create(offerId, req.body);
 
+    if (!comments) {
+      return res.status(HttpCode.NOT_FOUND)
+        .send(`Not found`);
+    }
+
     res.status(HttpCode.CREATED)
       .json(comments);
   });
@@ -89,8 +94,8 @@ module.exports = (app, offerService, commentService) => {
     const comment = commentService.drop(offerId, commentId);
 
     if (!comment) {
-      return res.status(HttpCode.status(HttpCode.NOT_FOUND)
-      .send(`Not found`));
+      return res.status(HttpCode.NOT_FOUND)
+        .send(`Not found`);
     }
 
     return res.status(HttpCode.OK)
