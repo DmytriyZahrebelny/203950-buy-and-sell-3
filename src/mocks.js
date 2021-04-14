@@ -91,6 +91,15 @@ const mockInvalidOffer = {
   type: `нет поля sum`
 };
 
+const mockNewOffer = {
+  category: `Котики`,
+  title: `Дам погладить котика`,
+  description: `Дам погладить котика. Дорого. Не гербалайф`,
+  picture: `cat.jpg`,
+  type: `OFFER`,
+  sum: 100500
+};
+
 module.exports = {
   mockOffers,
   mockOfersCategories: Array.from(mockOfersCategories),
@@ -101,4 +110,5 @@ module.exports = {
   mockNotFound,
   mockInvalidOffer,
   mockOfferCommentId,
+  mockNewOffer,
 };

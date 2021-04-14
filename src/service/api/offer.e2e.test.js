@@ -5,13 +5,13 @@ const request = require(`supertest`);
 const {
   mockOffers,
   mockFirstOffersId,
-  mockOfersCategories,
   mockSecondOfferId,
   mockSecondOfferTitle,
   mockNoExistId,
   mockNotFound,
   mockInvalidOffer,
   mockOfferCommentId,
+  mockNewOffer,
 } = require(`../../mocks`);
 const offer = require(`./offer`);
 const DataService = require(`../data-service/offer`);
@@ -63,34 +63,25 @@ describe(`API /offers/:offerId GET`, () => {
 });
 
 describe(`API /offers POST`, () => {
-  const newOffer = {
-    category: `Котики`,
-    title: `Дам погладить котика`,
-    description: `Дам погладить котика. Дорого. Не гербалайф`,
-    picture: `cat.jpg`,
-    type: `OFFER`,
-    sum: 100500
-  };
-
   const app = createAPI();
   let response;
 
   beforeAll(async () => {
     response = await request(app)
       .post(`/offers`)
-      .send(newOffer);
+      .send(mockNewOffer);
   });
 
   test(`Status code 201`, () => expect(response.statusCode).toBe(HttpCode.CREATED));
-  test(`Returns offer created`, () => expect(response.body).toEqual(expect.objectContaining(newOffer)));
+  test(`Returns offer created`, () => expect(response.body).toEqual(expect.objectContaining(mockNewOffer)));
   test(`Offers count is changed`, () => request(app)
     .get(`/offers`)
     .expect((res) => expect(res.body.length).toBe(mockOffers.length))
   );
 
   test(`Without any required property response code is 400`, async () => {
-    for (const key of Object.keys(newOffer)) {
-      const badOffer = {...newOffer};
+    for (const key of Object.keys(mockNewOffer)) {
+      const badOffer = {...mockNewOffer};
       delete badOffer[key];
       await request(app)
         .post(`/offers`)
@@ -101,26 +92,17 @@ describe(`API /offers POST`, () => {
 });
 
 describe(`API /offers/:offerId PUT`, () => {
-  const newOffer = {
-    category: `Котики`,
-    title: `Дам погладить котика`,
-    description: `Дам погладить котика. Дорого. Не гербалайф`,
-    picture: `cat.jpg`,
-    type: `OFFER`,
-    sum: 100500,
-  };
-
   const app = createAPI();
   let response;
 
   beforeAll(async () => {
     response = await request(app)
       .put(`/offers/${mockFirstOffersId}`)
-      .send(newOffer);
+      .send(mockNewOffer);
   });
 
   test(`Status code 200`, () => expect(response.statusCode).toBe(HttpCode.OK));
-  test(`Returns changed offer`, () => expect(response.body).toEqual(expect.objectContaining(newOffer)));
+  test(`Returns changed offer`, () => expect(response.body).toEqual(expect.objectContaining(mockNewOffer)));
   test(`Offer is really changed`, () => request(app)
     .get(`/offers/${mockFirstOffersId}`)
     .expect((res) => expect(res.body.title).toBe(`Дам погладить котика`))
@@ -134,7 +116,7 @@ describe(`API /offers/:offerId PUT`, () => {
   });
 
   test(`API returns status code 404 when trying to change non-existent offer`, () => {
-    return request(app).put(`/offers/${mockNoExistId}`).send(newOffer).expect(HttpCode.NOT_FOUND);
+    return request(app).put(`/offers/${mockNoExistId}`).send(mockNewOffer).expect(HttpCode.NOT_FOUND);
   });
 });
 
