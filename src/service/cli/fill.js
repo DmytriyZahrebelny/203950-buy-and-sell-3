@@ -32,7 +32,7 @@ const readContent = async (filePath) => {
     const content = await fs.readFile(filePath, `utf8`);
     return content.trim().split(`\n`);
   } catch (err) {
-    console.error(logger.error(err));
+    logger.error(err);
     return [];
   }
 };
@@ -138,9 +138,9 @@ module.exports = {
 
     try {
       await fs.writeFile(FILE_NAME, content);
-      console.log(logger.info(`Operation success. File created.`));
+      logger.info(`Operation success. File created.`);
     } catch (err) {
-      console.error(logger.error(`Can't write data to file...`));
+      logger.error(`Can't write data to file...`);
     }
   }
 };
